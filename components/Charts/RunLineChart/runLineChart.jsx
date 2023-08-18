@@ -9,8 +9,8 @@ const RunLineChart = ({ data }) => {
     const [mode, setMode] = useState('goldTotalTime');
 
     const formatYAxis = (data) => {
-        //converts seconds to HH:mm and removes HH: if it is 00
-        const format = new Date(data * 1000).toISOString();
+        //converts ms to HH:mm and removes HH: if it is 00
+        const format = new Date(data).toISOString();
         if (format.slice(11,13) === '00') {
             return format.slice(14, 19);
         }
