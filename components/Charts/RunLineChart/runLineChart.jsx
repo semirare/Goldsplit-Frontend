@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 
-import * as Toggle from '@radix-ui/react-navigation-menu';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from "recharts";
 
 const RunLineChart = ({ data }) => {
     const [mode, setMode] = useState('goldTotalTime');
+    const [showGolds, setShowGolds] = useState(true);
+    const [showAverage, setShowAverage] = useState(true);
 
     const formatYAxis = (data) => {
         //converts ms to HH:mm and removes HH: if it is 00
@@ -19,29 +20,38 @@ const RunLineChart = ({ data }) => {
         }
     }
 
-    const onModeClick = () => {
-        if (mode === 'goldTotalTime') {
-            setMode('averageTotalTime');
-        }
-        else {
-            setMode('goldTotalTime');
-        };
-    }
+    const handleGoldsClick = () => {
+        setShowGolds(!showGolds);
+    };
+
+    const handleAverageClick = () => {
+        setShowAverage(!showAverage);
+    };
 
     return (
         <div>
             <ResponsiveContainer width='100%' aspect={3}>
                 <LineChart data={data}>
                     <Line type='monotone' dataKey='totalTime' stroke='#50C878'/>
-                    <Line type='monotone' dataKey={mode} stroke='#FFD700'/>
+                    <Line type='monotone' dataKey='averageTotalTime' stroke="#FFFFFF" hide={!showAverage}/>
+                    <Line type='monotone' dataKey='goldTotalTime' stroke='#FFD700' hide={!showGolds}/>
                     <CartesianGrid stroke='#CCC'/>
                     <XAxis dataKey='name'/>
                     <YAxis tickFormatter={(y) => formatYAxis(y)} tick={{fontSize: 10}}/>
                 </LineChart>
             </ResponsiveContainer>
-        <button className='text-yellow-500 border border-yellow-500' onClick={onModeClick}>
-            {mode === 'goldTotalTime' ? 'Golds' : 'Average'}
-        </button>
+            <button 
+                className="text-white border border-white p-2"
+                onClick={handleGoldsClick}
+            >
+                Toggle Golds
+            </button>
+            <button 
+                className="text-white border border-white p-2"
+                onClick={handleAverageClick}
+            >
+                Toggle Average
+            </button>
         </div>
     );
 };

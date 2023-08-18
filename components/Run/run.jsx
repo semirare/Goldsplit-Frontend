@@ -7,8 +7,10 @@ const Run = ({ gameName, categoryName, totalTime, runner, splits = [] }) => {
     const formatChartData = (splits) => {
         const formattedSplits = splits.map((split) => ({name: split.name, 
                                                         totalTime: split.total_time,
-                                                        goldTotalTime: split.gold_total_time}));
-        return [{name: '', totalTime: 0, goldTotalTime: 0}].concat(formattedSplits);
+                                                        goldTotalTime: split.gold_total_time,
+                                                        averageTotalTime: split.average_total_time,
+                                                    }));
+        return [{name: '', totalTime: 0, goldTotalTime: 0, averageTotalTime: 0}].concat(formattedSplits);
     };
 
     return (
@@ -22,7 +24,7 @@ const Run = ({ gameName, categoryName, totalTime, runner, splits = [] }) => {
                 <div className='grid grid-flow-col p-5 flex-grow-2'>
                     <table className='text-white text-2xl border border-yellow-500'>
                         <thead className='border border-yellow-500'>
-                            <Split name={'Name'} time={'Split Time'} totalTime={'Total Time'} goldTime={'Gold Time'}/>
+                            <Split name={'Name'} time={'Split Time'} totalTime={'Total Time'} goldTime={'Gold Time'} averageTime={'Average Time'}/>
                         </thead>
                         <tbody>
                             {splits.map(split => (
@@ -30,7 +32,9 @@ const Run = ({ gameName, categoryName, totalTime, runner, splits = [] }) => {
                                     name={split.name}
                                     time={msToTime(split.time)}
                                     totalTime={msToTime(split.total_time)}
-                                    goldTime={msToTime(split.gold_time)}/>
+                                    goldTime={msToTime(split.gold_time)}
+                                    averageTime={msToTime(split.average_time)}
+                                />
                             ))}
                         </tbody>
                     </table>
