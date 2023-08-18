@@ -25,23 +25,21 @@ const Runs = ({ params }) => {
     };
 
     fetchData().catch(console.error);
-    }), []
+  }, []);
 
-    console.log(runData);
-
-    return (
-      loading ? (
-        <div>Loading in Progress</div>
-      ) : (
-        <Run
-          gameName={runData.game_name}
-          categoryName={runData.category_name}
-          totalTime={runData.total_time}
-          runner={'Semirare'}
-          splits={runData.splits}
-        />
-      )
-    );
-  };
+  return (
+    loading ? (
+      <div>Loading in Progress</div>
+    ) : (
+      <Run
+        gameName={runData.game_name}
+        categoryName={runData.category_name}
+        totalTime={runData.total_time}
+        runner={'Semirare'}
+        splits={runData.splits}
+      />
+    )
+  );
+};
   
 export default Runs;
