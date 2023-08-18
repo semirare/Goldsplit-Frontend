@@ -16,7 +16,8 @@ const Home = () => {
     }).catch((e) => console.log(e));
 
     if (response.ok) {
-      router.push('/runs');
+      const data = await response.json()
+      router.push(`/runs/${data.run_id}/`);
     }
     else {
       console.error('File upload failed');

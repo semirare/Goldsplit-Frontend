@@ -1,13 +1,13 @@
 import RunLineChart from '../Charts/RunLineChart/runLineChart';
 import Split from '../Split/split';
-import { timeToSeconds } from '@/utils/time';
+import { msToTime } from '@/utils/time';
 
 const Run = ({ gameName, categoryName, totalTime, runner, splits = [] }) => {
 
     const formatChartData = (splits) => {
         const formattedSplits = splits.map((split) => ({name: split.name, 
-                                                        totalTime: timeToSeconds(split.totalTime),
-                                                        goldTotalTime: timeToSeconds(split.goldTotalTime)}));
+                                                        totalTime: split.total_time,
+                                                        goldTotalTime: split.gold_total_time}));
         return [{name: '', totalTime: 0, goldTotalTime: 0}].concat(formattedSplits);
     };
 
@@ -26,7 +26,11 @@ const Run = ({ gameName, categoryName, totalTime, runner, splits = [] }) => {
                         </thead>
                         <tbody>
                             {splits.map(split => (
-                                <Split name={split.name} time={split.time} totalTime={split.totalTime} goldTime={split.goldTime}/>
+                                <Split
+                                    name={split.name}
+                                    time={msToTime(split.time)}
+                                    totalTime={msToTime(split.total_time)}
+                                    goldTime={msToTime(split.gold_time)}/>
                             ))}
                         </tbody>
                     </table>

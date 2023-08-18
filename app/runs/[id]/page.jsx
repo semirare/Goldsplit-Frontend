@@ -5,28 +5,29 @@ import { testSplits } from "@/testData/testData";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
-const Runs = () => {
+const Runs = ({ params }) => {
   const [loading, setLoading] = useState(true);
   const [runData, setRunData] = useState({});
   
   useEffect(() => {
     //fetch run info from api
     const fetchData = async () => {
-      const response = await fetch(`goldsplit/run/details/${run_id}/`, {
+      const response = await fetch(`/goldsplit/run/details/${params.id}/`, {
         method: 'GET'
         }
       );
         
       if (response.ok) {
-        console.log(response.data);
-        console.log(response.json);
-        setRunData(response.json);
+        const data = await response.json()
+        setRunData(data);
         setLoading(false);
       };
     };
 
     fetchData().catch(console.error);
-  }), []
+    }), []
+
+    console.log(runData);
 
     return (
       loading ? (
