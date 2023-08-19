@@ -1,7 +1,6 @@
 "use client"
 
 import Run from "@/components/Run/run";
-import { testSplits } from "@/testData/testData";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
