@@ -24,13 +24,15 @@ const Run = ({ gameName, categoryName, totalTime, runner, splits = [] }) => {
                 </Heading>
             </Flex>
             <Section>
-                <Grid columns='5'>
-                    <Text>Split Name</Text>
-                    <Text>Split Time</Text>
-                    <Text>Gold Time</Text>
-                    <Text>Average Time</Text>
-                    <Text>Run Time</Text>
-                </Grid>
+                <Card>
+                    <Grid columns='5'>
+                        <Text>Split Name</Text>
+                        <Text>Split Time</Text>
+                        <Text>Gold Time</Text>
+                        <Text>Average Time</Text>
+                        <Text>Run Time</Text>
+                    </Grid>
+                </Card>
                 <SplitsList splits={splits}/>
             </Section>
             <Section>
