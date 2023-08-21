@@ -27,7 +27,7 @@ const Home = () => {
 
   return (
     <Flex justify='center' direction='column'>
-      <Heading>Goldsplit helps you get the most out of your LiveSplti files!</Heading>
+      <Heading>Goldsplit helps you get the most out of your splits!</Heading>
       <Text>Upload your splits!</Text>
       <input type='file' accept='.lss' onChange={handleFileUpload}/>
     </Flex>
