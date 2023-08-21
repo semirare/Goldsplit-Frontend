@@ -3,7 +3,6 @@
 import * as NavMenu from '@radix-ui/react-navigation-menu';
 import { useRouter } from 'next/navigation';
 import NextLink from 'next/link';
-import { clsx } from "clsx";
 
 const Link = ({ href, ...props }) => {
   const router = useRouter();
@@ -25,14 +24,14 @@ const NavBar = () => {
     <NavMenu.Root className="relative">
         <NavMenu.List className="flex bg-black p-2 space-x-2">
             <NavMenu.Item>
-              <Link className='text-yellow-500' href='/'>Home</Link>
+              <Link href='/'>Home</Link>
             </NavMenu.Item>
             <NavMenu.Item>
-              <Link className='text-yellow-500' href='/games'>Games</Link>
+              <Link href='/games'>Games</Link>
             </NavMenu.Item>
-            <NavMenu.Item>
-              <Link className='text-yellow-500' href='/runs'>Runs</Link>
-            </NavMenu.Item>         
+{/*             <NavMenu.Item>
+              <Link href='/runs'>Runs</Link>
+            </NavMenu.Item>   */}       
         </NavMenu.List>
         <NavMenu.Viewport />
     </NavMenu.Root>

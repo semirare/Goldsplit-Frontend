@@ -1,5 +1,6 @@
 "use client";
 
+import { Flex, Heading, Text } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
 
 const Home = () => {
@@ -25,13 +26,11 @@ const Home = () => {
   }
 
   return (
-      <div className='flex flex-col justify-center text-yellow-500'>
-        <div className='flex justify-center'>Goldsplit helps you get the most of your Livesplit files!</div>
-        <label>
-          Upload your splits!
-          <input type='file' accept='.lss' onChange={handleFileUpload}/>
-        </label>
-      </div>
+    <Flex justify='center' direction='column'>
+      <Heading>Goldsplit helps you get the most out of your LiveSplti files!</Heading>
+      <Text>Upload your splits!</Text>
+      <input type='file' accept='.lss' onChange={handleFileUpload}/>
+    </Flex>
   );
 }
 

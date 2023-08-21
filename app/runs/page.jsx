@@ -30,7 +30,7 @@ const Runs = () => {
     loading ? (
       <div>Loading in Progress</div>
     ) : (
-      <RunList runs={runs}/>
+      <RunList runs={runs.results}/>
     )
   );
   };

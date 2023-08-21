@@ -1,27 +1,39 @@
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 
-import { msToTime } from "@/utils/time";
+import RunCard from "./runCard";
 
-const RunList = ({ runs }) => {
-    const router = useRouter();
-
-    const handleClick = (event) => {
-        router.push(`/runs/${event.currentTarget.id}/`);
-    };
-
+const RunList = ({ all_runs=true, game_id=null }) => {
+    const [loading, setLoading] = useState(true);
+    const [runData, setRunData] = useState({});
+    
+    useEffect(() => {
+      //fetch run data from api
+      //all runs in db are returned if all_runs are true
+      //if all_runs is false, a game_id should be provided to fetch the runs assocaited with that game
+      const fetchData = async () => {
+        const fetchUrl = all_runs ? '/goldsplit/runs/' : `/goldsplit/games/${game_id}/`
+        const response = await fetch(fetchUrl, { method: 'GET' });
+          
+        if (response.ok) {
+          const data = await response.json()
+          all_runs ? setRunData(data) : setRunData(data.runs);
+          setLoading(false);
+        };
+      };
+  
+      fetchData().catch(console.error);
+    }, []);
+  
     return (
-        <div className="flex flex-col space-y-2 p-2 justify-center items-center">
-            {runs.results.map((run) => (
-                <button id={run.id} onClick={handleClick}>
-                    <div className="border border-yellow-500 p-2">
-                        <div className="text-white">{run.game_name}</div>
-                        <div className="text-white">{run.category_name}</div>
-                        <div className="text-white">{msToTime(run.time)}</div>
-                        <div className="text-white">By Semirare</div>
-                    </div>
-                </button>
-            ))};
-        </div>
+        loading ? (
+            <div>Loading in progress</div>
+        ) : (
+            <div className="flex flex-col space-y-2 p-2 justify-center items-center">
+                {runData.map((run) => (
+                    <RunCard run={run}/>
+                ))}
+            </div>
+        )
     )
 }
 

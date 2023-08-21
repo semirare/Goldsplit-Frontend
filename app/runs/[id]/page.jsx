@@ -2,9 +2,8 @@
 
 import Run from "@/components/Run/run";
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
 
-const Runs = ({ params }) => {
+const RunDetails = ({ params }) => {
   const [loading, setLoading] = useState(true);
   const [runData, setRunData] = useState({});
   
@@ -41,4 +40,4 @@ const Runs = ({ params }) => {
   );
 };
   
-export default Runs;
+export default RunDetails;
