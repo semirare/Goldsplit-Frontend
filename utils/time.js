@@ -10,6 +10,9 @@ export const timeToSeconds = (time) => {
 };
 
 export const msToTime = (ms) => {
+    if (ms < 10) {
+        return '00.00';
+    }
     var milliseconds = parseInt(ms % 1000),
         seconds = parseInt((ms / 1000) % 60),
         minutes = parseInt((ms / (1000 * 60)) % 60),
