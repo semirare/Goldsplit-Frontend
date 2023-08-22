@@ -1,7 +1,9 @@
 "use client"
 
-import Run from "@/components/Run/run";
 import React, { useEffect, useState } from "react";
+
+import Run from "@/components/Run/run";
+import Loader from "@/components/Loader/loader";
 
 const RunDetails = ({ params }) => {
   const [loading, setLoading] = useState(true);
@@ -27,7 +29,7 @@ const RunDetails = ({ params }) => {
 
   return (
     loading ? (
-      <div>Loading in Progress</div>
+      <Loader/>
     ) : (
       <Run
         gameName={runData.game_name}

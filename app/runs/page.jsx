@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 
 import RunList from "@/components/Run/runList";
+import Loader from "@/components/Loader/loader";
 
 const Runs = () => {
   const [runs, setRuns] = useState();
@@ -28,7 +29,7 @@ const Runs = () => {
 
   return (
     loading ? (
-      <div>Loading in Progress</div>
+      <Loader/>
     ) : (
       <RunList runs={runs.results}/>
     )

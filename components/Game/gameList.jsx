@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { Grid } from "@radix-ui/themes";
 
 import GameCard from "./gameCard";
+import Loader from "../Loader/loader";
 
 const gameList = () => {
     const [games, setGames] = useState();
@@ -30,7 +31,7 @@ const gameList = () => {
 
     return (
         loading ? (
-            <div>Loading in progress</div>
+            <Loader/>
         ) : (
             <Grid columns='3' p='5' gap='5' width='auto'>
                 {games.map(game => (

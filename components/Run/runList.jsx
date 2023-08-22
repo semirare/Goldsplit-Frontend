@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import RunCard from "./runCard";
+import Loader from "../Loader/loader";
 
 const RunList = ({ all_runs=true, game_id=null }) => {
     const [loading, setLoading] = useState(true);
@@ -26,7 +27,7 @@ const RunList = ({ all_runs=true, game_id=null }) => {
   
     return (
         loading ? (
-            <div>Loading in progress</div>
+            <Loader/>
         ) : (
             <div className="flex flex-col space-y-2 p-2 justify-center items-center">
                 {runData.map((run) => (
