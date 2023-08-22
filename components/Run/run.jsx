@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import RunLineChart from '../Charts/RunLineChart/runLineChart';
 import SplitsList from '../Split/splitsList';
 import { msToTime } from '@/utils/time';
+import RunDiffChart from '../Charts/RunDiffChart/runDiffChart';
 
 const Run = ({ gameName, categoryName, totalTime, runner, splits = [] }) => {
     const [splitData, setSplitData] = useState([]);
@@ -65,6 +66,7 @@ const Run = ({ gameName, categoryName, totalTime, runner, splits = [] }) => {
             </Section>
             <Section>
                 <RunLineChart data={chartData}/>
+                <RunDiffChart data={chartData}/>
             </Section>
         </Container>
     )
