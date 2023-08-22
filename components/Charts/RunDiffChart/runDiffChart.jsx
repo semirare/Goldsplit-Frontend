@@ -1,5 +1,3 @@
-"use client"
-
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, ResponsiveContainer, ReferenceLine, Tooltip, Legend } from "recharts";
 
 const RunDiffChart = ({ data }) => {

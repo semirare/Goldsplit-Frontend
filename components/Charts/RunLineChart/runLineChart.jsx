@@ -1,12 +1,6 @@
-"use client"
-
-import { useState } from "react";
-
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip, Legend } from "recharts";
 
 const RunLineChart = ({ data }) => {
-    const [showGolds, setShowGolds] = useState(true);
-    const [showAverage, setShowAverage] = useState(true);
 
     const formatYAxis = (data) => {
         //converts ms to HH:mm and removes HH: if it is 00
@@ -23,9 +17,9 @@ const RunLineChart = ({ data }) => {
         <div>
             <ResponsiveContainer width='100%' aspect={3}>
                 <LineChart data={data}>
-                    <Line type='monotone' dataKey='averageTotalTime' name='Averages' stroke="#FFFFFF" hide={!showAverage} isAnimationActive={false}/>
+                    <Line type='monotone' dataKey='averageTotalTime' name='Averages' stroke="#FFFFFF" isAnimationActive={false}/>
                     <Line type='monotone' dataKey='totalTime' name='PB' stroke='#50C878' isAnimationActive={false}/>
-                    <Line type='monotone' dataKey='goldTotalTime' name='Golds' stroke='#FFD700' hide={!showGolds} isAnimationActive={false}/>
+                    <Line type='monotone' dataKey='goldTotalTime' name='Golds' stroke='#FFD700' isAnimationActive={false}/>
                     <CartesianGrid stroke='#CCC'/>
                     <Tooltip formatter={(y) => formatYAxis(y)} contentStyle={{backgroundColor: '#000000'}}/>
                     <Legend/>
