@@ -6,9 +6,9 @@ import * as Tabs from '@radix-ui/react-tabs';
 import RunCard from "./runCard";
 import Loader from "../Loader/loader";
 
-const RunList = ({game_id=null }) => {
+const RunList = ({game_id=null, sortMode='Fastest' }) => {
     const [loading, setLoading] = useState(true);
-    const [runData, setRunData] = useState({});
+    const [runData, setRunData] = useState([]);
     const [categories, setCategories] = useState(new Set());
     
     useEffect(() => {
@@ -32,6 +32,15 @@ const RunList = ({game_id=null }) => {
   
       fetchData().catch(console.error);
     }, []);
+
+    console.log(runData);
+    sortMode === 'Fastest' ? 
+      runData.sort((a,b) => {
+        return a.time <= b.time ? -1 : 1;
+      }) :
+      runData.sort((a,b) => {
+        return a.upload_date <= b.upload_date ? -1 : 1;
+      })
 
     return (
         loading ? (
