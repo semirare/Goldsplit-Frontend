@@ -2,9 +2,10 @@ import { Flex, Container, Heading, Section, Card, Grid, Text } from '@radix-ui/t
 import { useState, useEffect } from 'react';
 
 import RunLineChart from '../Charts/RunLineChart/runLineChart';
-import SplitsList from '../Split/splitsList';
-import { msToTime } from '@/utils/time';
 import RunDiffChart from '../Charts/RunDiffChart/runDiffChart';
+import SplitsList from '../SplitsList/splitsList';
+
+import { msToTime } from '@/utils/time';
 
 const Run = ({ gameName, categoryName, totalTime, runner, splits = [] }) => {
     const [splitData, setSplitData] = useState([]);

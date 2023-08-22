@@ -1,4 +1,4 @@
-  "use client";
+"use client";
 
 import * as NavMenu from '@radix-ui/react-navigation-menu';
 import { useRouter } from 'next/navigation';
