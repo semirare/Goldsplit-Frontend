@@ -1,20 +1,48 @@
 import { Flex, Container, Heading, Section, Card, Grid, Text } from '@radix-ui/themes';
+import { useState, useEffect } from 'react';
 
 import RunLineChart from '../Charts/RunLineChart/runLineChart';
-import Split from '../Split/split';
-import { msToTime } from '@/utils/time';
 import SplitsList from '../Split/splitsList';
+import { msToTime } from '@/utils/time';
 
 const Run = ({ gameName, categoryName, totalTime, runner, splits = [] }) => {
+    const [splitData, setSplitData] = useState([]);
 
-    const formatChartData = (splits) => {
-        const formattedSplits = splits.map((split) => ({name: split.name, 
-                                                        totalTime: split.total_time,
-                                                        goldTotalTime: split.gold_total_time,
-                                                        averageTotalTime: split.average_total_time,
-                                                    }));
-        return [{name: '', totalTime: 0, goldTotalTime: 0, averageTotalTime: 0}].concat(formattedSplits);
-    };
+    useEffect(() => {
+        let prevGoldDiff = 0;
+        let prevAverageDiff = 0;
+        let formattedSplits = []
+
+        splits.forEach((split) => {
+            const newGoldDiff = split.time - split.gold_time;
+            const newCumulativeGoldDiff = prevGoldDiff + newGoldDiff;
+
+            const newAverageDiff = split.time - split.average_time;
+            const newCumulativeAverageDiff = prevAverageDiff + newAverageDiff;
+            
+            prevGoldDiff = newCumulativeGoldDiff;
+            prevAverageDiff = newCumulativeAverageDiff;
+
+            formattedSplits.push({
+                name: split.name,
+                time: split.time,
+                goldTime: split.gold_time,
+                averageTime: split.average_time,
+                totalTime: split.total_time,
+                goldTotalTime: split.gold_total_time,
+                averageTotalTime: split.average_total_time,
+                goldTimeDiff: newGoldDiff,
+                averageTimeDiff: newAverageDiff,
+                cumulativeGoldTimeDiff: newCumulativeGoldDiff,
+                cumulativeAverageTimeDiff: newCumulativeAverageDiff,
+            });
+        });
+
+        setSplitData(formattedSplits);
+    }, []);
+
+    //add a first data point for chart with 0 values so all lines start from 0
+    const chartData = [{name: '', time: 0, totalTime: 0, goldTotalTime: 0, averageTotalTime: 0, cumulativeGoldTimeDiff: 0, cumulativeAverageTimeDiff: 0}].concat(splitData);
 
     return (
         <Container>
@@ -25,18 +53,18 @@ const Run = ({ gameName, categoryName, totalTime, runner, splits = [] }) => {
             </Flex>
             <Section>
                 <Card>
-                    <Grid columns='5'>
-                        <Text>Split Name</Text>
-                        <Text>Split Time</Text>
-                        <Text>Gold Time</Text>
-                        <Text>Average Time</Text>
-                        <Text>Run Time</Text>
+                    <Grid columns='6'>
+                        <Text className='justify-self-start'>Split Name</Text>
+                        <Text className='justify-self-center'>Split Time</Text>
+                        <Text className='justify-self-center'>Gold Time</Text>
+                        <Text className='justify-self-center'>Average Time</Text>
+                        <Text className='justify-self-end'>Run Time</Text>
                     </Grid>
                 </Card>
-                <SplitsList splits={splits}/>
+                <SplitsList splits={splitData}/>
             </Section>
             <Section>
-                <RunLineChart data={formatChartData(splits)}/>
+                <RunLineChart data={chartData}/>
             </Section>
         </Container>
     )

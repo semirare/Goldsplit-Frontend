@@ -1,4 +1,5 @@
 import * as Accordion from '@radix-ui/react-accordion';
+import { ChevronDownIcon } from '@radix-ui/react-icons';
 import { Grid, Text, Card } from '@radix-ui/themes';
 
 import { msToTime } from '@/utils/time';
@@ -14,27 +15,36 @@ const SplitsList = ({ splits }) => {
                     <Accordion.Item value={split.name}>
                         <Accordion.Header>
                             <Accordion.Trigger asChild>    
-                                <Grid columns='5'>
-                                        <div>{split.name}</div>
-                                        <div>{msToTime(split.time)}</div>
-                                        <div>{msToTime(split.gold_time)}</div>
-                                        <div>{msToTime(split.average_time)}</div>
-                                        <div>{msToTime(split.total_time)}</div>
+                                <Grid columns='6'>
+                                    <Text className='justify-self-start'>{split.name}</Text>
+                                    <Text className='justify-self-center'>{msToTime(split.time)}</Text>
+                                    <Text className='justify-self-center'>{msToTime(split.goldTime)}</Text>
+                                    <Text className='justify-self-center'>{msToTime(split.averageTime)}</Text>
+                                    <Text className='justify-self-end'>{msToTime(split.totalTime)}</Text>
+                                    <ChevronDownIcon className='AccordionChevron justify-self-end' aria-hidden />
                                 </Grid>
                             </Accordion.Trigger>
                         </Accordion.Header>
                         <Accordion.Content>
-                            <Grid columns='5' justify='end'>
-                                <div>Diff</div>
-                                <div></div>
-                                <div><Text color='tomato'>+{msToTime(split.time - split.gold_time)}</Text></div>
-                                <div>
-                                    {split.average_time > split.time ?
-                                    <Text color='green'>-{msToTime(split.average_time - split.time)}</Text> :
-                                    <Text color='tomato'>+{msToTime(split.time - split.average_time)}</Text> 
-                                    }
-                                </div>
-                                <div></div>
+                            <Grid columns='6'>
+                                <Text className='justify-self-start'>Diff</Text>
+                                <Text color='tomato' className='justify-self-center col-start-3'>+{msToTime(split.goldTimeDiff)}</Text>
+                                {split.averageTimeDiff < 0 ? (
+                                    <Text color='green' className='justify-self-center col-start-4'>{msToTime(split.averageTimeDiff)}</Text>
+                                ) : (
+                                    <Text color='tomato' className='justify-self-center col-start-4'>+{msToTime(split.averageTimeDiff)}</Text>
+                                )
+                                }
+                            </Grid>
+                            <Grid columns='6'>
+                                <Text className='justify-self-start'>Cumulative Diff</Text>
+                                <Text color='tomato' className='justify-self-center col-start-3'>+{msToTime(split.cumulativeGoldTimeDiff)}</Text>
+                                {split.cumulativeAverageTimeDiff < 0 ? (
+                                    <Text color='green' className='justify-self-center col-start-4'>{msToTime(split.cumulativeAverageTimeDiff)}</Text>
+                                ) : (
+                                    <Text color='tomato' className='justify-self-center col-start-4'>+{msToTime(split.cumulativeAverageTimeDiff)}</Text>
+                                )
+                                }
                             </Grid>
                         </Accordion.Content>
                     </Accordion.Item>

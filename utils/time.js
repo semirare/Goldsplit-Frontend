@@ -10,13 +10,16 @@ export const timeToSeconds = (time) => {
 };
 
 export const msToTime = (ms) => {
-    if (ms < 10) {
+    if (ms < 10 && ms > 0) {
         return '00.00';
     }
-    var milliseconds = parseInt(ms % 1000),
-        seconds = parseInt((ms / 1000) % 60),
-        minutes = parseInt((ms / (1000 * 60)) % 60),
-        hours = parseInt((ms / (1000 * 60 * 60)) % 24);
+    const negative = ms < 0
+    const time = negative ? -ms : ms
+
+    var milliseconds = parseInt(time % 1000),
+        seconds = parseInt((time / 1000) % 60),
+        minutes = parseInt((time / (1000 * 60)) % 60),
+        hours = parseInt((time / (1000 * 60 * 60)) % 24);
 
     // if milliseconds in < 10 pad with a trailing 0
     milliseconds = (milliseconds < 10) ? milliseconds + "0" : milliseconds
@@ -39,14 +42,17 @@ export const msToTime = (ms) => {
         //pad minutes and seconds with leading 0 if less than 10
         minutes = (minutes < 10) ? "0" + minutes : minutes;
         seconds = (seconds < 10) ? "0" + seconds : seconds;
-        return `${hours}:${minutes}:${seconds}.${milliseconds}`;
+        const strTime = `${hours}:${minutes}:${seconds}.${milliseconds}`;
+        return negative ? '-' + strTime : strTime;
     }
     else if (minutes > 0) {
         //pad seconds with leading 0 if less than 10
         seconds = (seconds < 10) ? "0" + seconds : seconds;
-        return `${minutes}:${seconds}.${milliseconds}`;
+        const strTime = `${minutes}:${seconds}.${milliseconds}`;
+        return negative ? '-' + strTime : strTime;
     }
     else {
-        return `${seconds}.${milliseconds}`;
+        const strTime = `${seconds}.${milliseconds}`;
+        return negative ? '-' + strTime : strTime;
     }
 }
